@@ -5,14 +5,14 @@ const audioPack = {};
 window.songBuffer = null;
 
 window.getSong = function () {
-  const url = 'mkultra.mp3';
+  const url = "mkultra.mp3";
   const req = new XMLHttpRequest();
-  req.open('GET', url, true);
-  req.responseType = 'arraybuffer';
+  req.open("GET", url, true);
+  req.responseType = "arraybuffer";
   //const audioContext = new AudioContext()
 
   const onError = function () {
-    console.log('error');
+    console.log("error");
   };
 
   const audioContext = new AudioContext();
@@ -65,7 +65,7 @@ async function audioInit(audioContext) {
   }
 
   const whiteNoiseSouce = audioContext.createBufferSource(songBuffer);
-  console.log('65 ', whiteNoiseSouce);
+  console.log("65 ", whiteNoiseSouce);
   whiteNoiseSouce.buffer = songBuffer;
 
   const primaryGainControl = audioContext.createGain();
@@ -81,10 +81,10 @@ async function audioInit(audioContext) {
 
   //audioContext.connect(analyzerNode);
 
-  const button = document.createElement('button');
-  button.innerHTML = 'Start';
+  const button = document.createElement("button");
+  button.innerHTML = "Start";
 
-  button.addEventListener('click', () => {
+  button.addEventListener("click", () => {
     let clicked = false;
 
     whiteNoiseSouce.start();
@@ -95,9 +95,9 @@ async function audioInit(audioContext) {
 
     const freqDomain = new Float32Array(analyzerNode.frequencyBinCount);
     const d = analyzerNode.getFloatFrequencyData(freqDomain);
-    console.log(d);
+    console.log("d", d);
 
-    console.log('57 ', freqDomain);
+    console.log("57 ", freqDomain);
     //audioSource.connect(analyzerNode);
 
     // analyzerNode.fftSize = 1024;
@@ -108,8 +108,8 @@ async function audioInit(audioContext) {
   document.body.appendChild(button);
 }
 
-// window.onload = () => {
-//   window.getSong();
-// };
+window.onload = () => {
+  // window.getSong();
+};
 
-//export default audioPack;
+export default audioPack;
