@@ -1,10 +1,20 @@
-let mic;
+function preload(fileName) {
+  if (fileName) {
+    sound = loadSound(fileName);
+  } else {
+    sound = loadSound('../assets/myeyes1.wav');
+  }
 
-function preload() {
-  sound = loadSound("../assets/mkultra.mp3");
+  console.log('sound2 ', sound);
 }
 
 function setup() {
+  createFileInput((e) => {
+    console.log(e.data);
+    const unBlobed = e.data.replace('blob:', '');
+    console.log(unBlobed);
+    sound = loadSound(e.data);
+  }, false);
   let cnv = createCanvas(displayWidth, displayHeight / 1.2);
   cnv.mouseClicked(togglePlay);
   fft = new p5.FFT();
@@ -21,7 +31,7 @@ function draw() {
     let x = map(i, 0, spectrum.length, 0, width);
     let h = -height + map(spectrum[i], 0, 255, height, 0);
     rect(x, height, width / spectrum.length, h);
-    //line(x, height, width / spectrum.length, h);
+    line(x, height, width / spectrum.length, h);
   }
 
   let waveform = fft.waveform();
@@ -31,13 +41,12 @@ function draw() {
   for (let i = 0; i < waveform.length; i++) {
     let x = map(i, 0, waveform.length, 0, width);
     let y = map(waveform[i], -1, 1, 0, height);
-
+    vertex(x, y);
     rect(x, y);
-    console.log(vertex(x, y));
   }
   endShape();
 
-  text("tap to play", 20, 20);
+  text('tap to play', 20, 20);
 }
 
 function togglePlay() {
