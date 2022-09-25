@@ -1,3 +1,5 @@
+let clicked = false;
+
 function preload(fileName) {
   if (fileName) {
     sound = loadSound(fileName);
@@ -13,16 +15,19 @@ function setup() {
     sound = loadSound(e.data);
   }, false);
   let cnv = createCanvas(displayWidth, displayHeight / 1.2);
-  cnv.mouseClicked(togglePlay);
+  cnv.mouseClicked(() => {
+    togglePlay();
+    clicked = true;
+  });
   fft = new p5.FFT();
   console.log(fft);
   sound.amp(0.2);
 }
-
+let sphereStuff = 10;
 function draw() {
   let spect, wave;
   background(200);
-  let spectrum = fft.analyze();
+  //let spectrum = fft.analyze();
   noStroke(55);
   fill(255, 0, 255);
   // for (let i = 0; i < spectrum.length; i++) {
@@ -37,28 +42,29 @@ function draw() {
   let waveform = fft.waveform();
   noFill();
   beginShape();
-  stroke(0);
+
+  background(255);
+  //rotateY(millis() / 1000);
+  //background(205, 102, 94);
+  //sphere(40);
+
   //console.log(frameCount);
   for (let i = 0; i < waveform.length; i++) {
     wave = map(i, 0, waveform.length, 0, width);
     let y = map(waveform[i], -1, 1, 0, height);
-
+    stroke(50);
     // vertex(wave, y);
     // vertex(0, wave);
     // vertex(wave, 0);
     // vertex(0, -wave);
     circle(displayWidth / 2, y, wave);
-    //rect(displayWidth / 4, displayHeight / 4, y, wave);
-    //rotate(frameCount * 0.0000025);
-    if (frameCount % 2000 === 0) {
-      frameCount = 0;
-    }
-    //rect(wave, y);
+  }
+
+  if (wave.toString().split('').includes('8')) {
+    sphereStuff = Math.floor(Math.random() * 20);
   }
 
   endShape();
-
-  //text('tap to play', 20, 20);
 }
 
 function togglePlay() {
