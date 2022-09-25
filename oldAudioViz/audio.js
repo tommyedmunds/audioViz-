@@ -1,5 +1,6 @@
 //audio shit
-
+// const numbers = [1, 3, 4, 5, 6, 7, 10];
+// window.setInterval(() => numbers[Math.floor(Math.random() * numbers.length)], 1000);
 const audioPack = {};
 
 window.songBuffer = null;

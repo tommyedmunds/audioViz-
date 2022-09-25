@@ -10,9 +10,6 @@ function preload(fileName) {
 
 function setup() {
   createFileInput((e) => {
-    console.log(e.data);
-    const unBlobed = e.data.replace('blob:', '');
-    console.log(unBlobed);
     sound = loadSound(e.data);
   }, false);
   let cnv = createCanvas(displayWidth, displayHeight / 1.2);
