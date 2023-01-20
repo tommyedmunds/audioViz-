@@ -76,7 +76,7 @@ function draw() {
       //rotateZ(-frameCount * 0.0000041);
       xoff += inc;
     }
-    if (y % 10 === 0) zoff += waveform[y];
+    if (y % 2 === 0) zoff += waveform[y];
     yoff += inc;
     endShape();
   }
